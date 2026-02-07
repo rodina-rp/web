@@ -1,0 +1,333 @@
+---
+import Base from '../layouts/Base.astro';
+
+
+const title = "RODINA RP";
+const description = "Экскурсия в российскую душу через ролевую игру. Станьте кем угодно в уникальной социальной структуре.";
+---
+
+<Base title={title} description={description}>
+  <div class="hero-wrapper">
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      class="hero-video"
+      aria-hidden="true"
+    >
+      <source src="/web/assets/video/background.webm" type="video/webm" loading="lazy">
+    </video>
+    
+    <div class="hero-overlay" aria-hidden="true"></div>
+    
+    <div class="hero-content">
+      <h1 class="hero-title">
+        RODINA <span class="text-red">RP</span>
+      </h1>
+      
+      <p class="hero-subtitle">
+        Экскурсия в российскую душу через ролевую игру<br class="hidden sm:block">
+        Станьте кем угодно в уникальной социальной структуре
+      </p>
+
+      
+      <div class="hero-buttons">
+        <a 
+          href="https://gamemonitoring.ru/unturned/servers/10706611/connect" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="hero-button hero-button-play"
+        >
+          <i class="fas fa-play"></i>
+          НАЧАТЬ ИГРУ
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        
+        <a 
+          href="https://discord.gg/4ZmEmNzk" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="hero-button hero-button-discord"
+        >
+          <i class="fa-brands fa-discord"></i>
+          DISCORD
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-background">
+    <div class="main-content-container">
+      <section class="russian-realities-section">
+        <div class="russian-realities-grid">
+          <div class="russian-realities-content">
+            <h2 class="russian-realities-title">Ролевая игра в российских реалиях</h2>
+            <p class="russian-realities-text">
+              Основная цель проекта — создать правдоподобную социальную среду для отыгрыша. 
+              Создание персонажа начинается с выбора имени, фамилии и пола. Дальнейшая же 
+              глубина и уникальность вашего героя полностью определяются вашими действиями, 
+              речами и социальными связями в игре.
+            </p>
+            <ul class="russian-realities-list">
+              <li class="russian-realities-list-item">
+                <i class="fas fa-circle-check russian-realities-list-icon"></i>
+                <span>Отыгрыш и взаимодействие в рамках российского социума</span>
+              </li>
+              <li class="russian-realities-list-item">
+                <i class="fas fa-circle-check russian-realities-list-icon"></i>
+                <span>Экономика, основанная на взаимодействии игроков</span>
+              </li>
+              <li class="russian-realities-list-item">
+                <i class="fas fa-circle-check russian-realities-list-icon"></i>
+                <span>Живые события и конфликты, формируемые сообществом</span>
+              </li>
+            </ul>
+          </div>
+          <div class="russian-realities-image">
+            <div class="russian-realities-image-container">
+              <img src="/web/assets/img/mpo.webp" loading="lazy" alt="Магазин премиальной одежды">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="discord-community-section">
+          <div class="discord-community-grid">
+              <div class="discord-widget-container">
+                  <h2 class="discord-section-title">Наше Discord-сообщество</h2>
+                  <p class="discord-section-description">Общайтесь, следите за новостями</p>
+                  
+                  <div class="discord-iframe-wrapper">
+                      <iframe 
+                          src="https://discord.com/widget?id=1071899989690826844&theme=dark" 
+                          width="100%" 
+                          height="700px" 
+                          allowtransparency="true" 
+                          frameborder="0" 
+                          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                          class="discord-iframe"
+                          title="Discord сообщество сервера"
+                      ></iframe>
+                  </div>
+                  
+                  <a 
+                      href="https://discord.gg/4ZmEmNzk" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      class="discord-main-join"
+                  >
+                      <i class="fa-brands fa-discord"></i>
+                      Перейти в Discord
+                  </a>
+              </div>
+              
+              <div class="discord-factions">
+                  <div class="discord-factions-content">
+                      <h2 class="discord-section-title">Вступай во фракции</h2>
+                      <p class="discord-section-description">Присоединяйтесь к государственным структурам через Discord</p>
+                      
+                      <div class="discord-factions-grid">
+                          <a href="https://discord.gg/APnqrmWUvn" target="_blank" rel="noopener noreferrer" class="discord-faction discord-mvd">
+                              <div class="discord-faction-icon">
+                                  <img src="/web/assets/img/mvd.webp" loading="lazy" alt="МВД" class="discord-faction-img">
+                              </div>
+                              <div class="discord-faction-info">
+                                  <h3 class="discord-faction-name">МВД</h3>
+                                  <p class="discord-faction-desc">Министерство внутренних дел</p>
+                              </div>
+                              <div class="discord-faction-join">
+                                  <i class="fa-brands fa-discord"></i>
+                                  <span class="join-text">Присоединиться</span>
+                              </div>
+                          </a>
+                          
+                          <a href="https://discord.gg/PwcmTat6qZ" target="_blank" rel="noopener noreferrer" class="discord-faction discord-health">
+                              <div class="discord-faction-icon">
+                                  <img src="/web/assets/img/med.webp" loading="lazy" alt="Минздрав" class="discord-faction-img">
+                              </div>
+                              <div class="discord-faction-info">
+                                  <h3 class="discord-faction-name">Минздрав</h3>
+                                  <p class="discord-faction-desc">Министерство здравоохранения</p>
+                              </div>
+                              <div class="discord-faction-join">
+                                  <i class="fa-brands fa-discord"></i>
+                                  <span class="join-text">Присоединиться</span>
+                              </div>
+                          </a>
+                          
+                          <a href="https://discord.gg/tQKfPhr7Ab" target="_blank" rel="noopener noreferrer" class="discord-faction discord-rosguard">
+                              <div class="discord-faction-icon">
+                                  <img src="/web/assets/img/ros.webp" loading="lazy" alt="Росгвардия" class="discord-faction-img">
+                              </div>
+                              <div class="discord-faction-info">
+                                  <h3 class="discord-faction-name">Росгвардия</h3>
+                                  <p class="discord-faction-desc">Войска национальной гвардии</p>
+                              </div>
+                              <div class="discord-faction-join">
+                                  <i class="fa-brands fa-discord"></i>
+                                  <span class="join-text">Присоединиться</span>
+                              </div>
+                          </a>
+                          
+                          <a href="https://discord.gg/TJzr6gB8kH" target="_blank" rel="noopener noreferrer" class="discord-faction discord-fsb">
+                              <div class="discord-faction-icon">
+                                  <img src="/web/assets/img/fsb.webp" loading="lazy" alt="ФСБ" class="discord-faction-img">
+                              </div>
+                              <div class="discord-faction-info">
+                                  <h3 class="discord-faction-name">ФСБ</h3>
+                                  <p class="discord-faction-desc">Федеральная служба безопасности</p>
+                              </div>
+                              <div class="discord-faction-join">
+                                  <i class="fa-brands fa-discord"></i>
+                                  <span class="join-text">Присоединиться</span>
+                              </div>
+                          </a>
+                          
+                          <a href="https://discord.gg/ht9eSaQ5Vq" target="_blank" rel="noopener noreferrer" class="discord-faction discord-government">
+                              <div class="discord-faction-icon">
+                                  <img src="/web/assets/img/prav.webp" loading="lazy" alt="Правительство" class="discord-faction-img">
+                              </div>
+                              <div class="discord-faction-info">
+                                  <h3 class="discord-faction-name">Правительство</h3>
+                                  <p class="discord-faction-desc">Прокуратура, адвокатура, судебная система</p>
+                              </div>
+                              <div class="discord-faction-join">
+                                  <i class="fa-brands fa-discord"></i>
+                                  <span class="join-text">Присоединиться</span>
+                              </div>
+                          </a>
+                      </div>
+                  </div>
+                  
+                  <div class="discord-factions-image">
+                      <div class="discord-factions-image-container">
+                          <img src="/web/assets/img/discord.webp" loading="lazy" alt="Фракции Discord">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <section class="screenshots-section">
+        <h2 class="screenshots-title">Скриншоты с сервера</h2>
+        <div class="screenshots-gallery">
+          <div class="screenshots-slides" id="screenshotsSlides">
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/carshop.webp" loading="lazy" alt="Магазин авто">
+              <div class="screenshot-info">
+                <h3>Автосалон</h3>
+                <p>Широкий выбор транспортных средств для игроков</p>
+              </div>
+            </div>
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/fishing.webp" loading="lazy" alt="Рыбалка">
+              <div class="screenshot-info">
+                <h3>Рыбалка</h3>
+                <p>Спокойный отдых на природе с возможностью заработка</p>
+              </div>
+            </div>
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/kpp.webp" loading="lazy" alt="Локация">
+              <div class="screenshot-info">
+                <h3>Контрольный пункт</h3>
+                <p>Стратегические точки на карте для контроля территории</p>
+              </div>
+            </div>
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/kpz.webp" loading="lazy" alt="Кафе">
+              <div class="screenshot-info">
+                <h3>Кафе "КПЗ"</h3>
+                <p>Место для новых встреч и ролевых взаимодействий</p>
+              </div>
+            </div>
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/mpo.webp" loading="lazy" alt="Магазин премиальной одежды">
+              <div class="screenshot-info">
+                <h3>Премиальная одежда</h3>
+                <p>Эксклюзивные вещи для кастомизации персонажа</p>
+              </div>
+            </div>
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/rosgvardia.webp" loading="lazy" alt="Росгвардия">
+              <div class="screenshot-info">
+                <h3>Росгвардия</h3>
+                <p>Здание правоохранительных органов</p>
+              </div>
+            </div>
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/sberbank.webp" loading="lazy" alt="Сбербанк">
+              <div class="screenshot-info">
+                <h3>Сбербанк</h3>
+                <p>Финансовый центр для хранения и "приумножения" средств</p>
+              </div>
+            </div>
+            <div class="screenshot-slide">
+              <img src="/web/assets/img/sturm.webp" loading="lazy" alt="Штурм здания">
+              <div class="screenshot-info">
+                <h3>Тактические операции</h3>
+                <p>Интенсивные моменты игрового процесса</p>
+              </div>
+            </div>
+          </div>
+          
+          <button class="screenshot-nav screenshot-nav-prev" id="screenshotPrevBtn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="screenshot-nav screenshot-nav-next" id="screenshotNextBtn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          
+          <div class="screenshot-counter" id="screenshotCounter">1 / 8</div>
+        </div>
+        
+        <div class="screenshot-indicators" id="screenshotIndicators">
+          <div class="screenshot-indicator active" data-index="0"></div>
+          <div class="screenshot-indicator" data-index="1"></div>
+          <div class="screenshot-indicator" data-index="2"></div>
+          <div class="screenshot-indicator" data-index="3"></div>
+          <div class="screenshot-indicator" data-index="4"></div>
+          <div class="screenshot-indicator" data-index="5"></div>
+          <div class="screenshot-indicator" data-index="6"></div>
+          <div class="screenshot-indicator" data-index="7"></div>
+        </div>
+      </section>
+      
+      <section class="customization-section">
+        <div class="customization-grid">
+          <div class="customization-image-container">
+            <img src="/web/assets/img/sturm.webp" loading="lazy" alt="Штурм здания">
+          </div>
+          <div class="customization-content">
+            <h2 class="customization-title">Кастомизация и фракции</h2>
+            <p class="customization-text">
+              Внешний вид — отличный инструмент отыгрыша. На сервере доступна 
+              <strong>огромная библиотека одежды и экипировки</strong>, которую можно приобрести 
+              за внутриигровую валюту, заработанную в процессе RP. Выбирайте путь: вступайте 
+              в официальные государственные структуры или идите в криминальные группировки — 
+              каждая фракция предлагает свой уникальный стиль и возможности.
+            </p>
+            <div class="customization-features">
+              <div class="customization-feature">
+                <i class="fas fa-shield customization-feature-icon"></i>
+                <h3 class="customization-feature-title">Государственные структуры</h3>
+                <p class="customization-feature-description">
+                  Правоохранительные органы, медики, адвокаты
+                </p>
+              </div>
+              <div class="customization-feature">
+                <i class="fas fa-triangle-exclamation customization-feature-icon"></i>
+                <h3 class="customization-feature-title">Криминальные группировки</h3>
+                <p class="customization-feature-description">
+                  Банды, наркотики, черный рынок
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="/web/assets/js/sliders.min.js" defer></script>
+</Base>

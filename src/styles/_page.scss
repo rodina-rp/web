@@ -1,0 +1,306 @@
+.internal-content-background {
+    position   : relative;
+    min-height : 100vh;
+    padding-top: 130px;
+    z-index    : 1;
+}
+
+.internal-content-background::before {
+    content : '';
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    right   : 0;
+    bottom  : 0;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(139, 0, 0, 0.03) 10px,
+            rgba(139, 0, 0, 0.03) 20px);
+    border        : none;
+    padding       : 0;
+    pointer-events: none;
+    z-index       : 0;
+}
+
+.internal-content-container {
+    position     : relative;
+    z-index      : 2;
+    background   : rgba(10, 10, 10, 0.9);
+    border-radius: 1rem;
+    padding      : 2rem;
+    margin       : 0 auto;
+    max-width    : 1200px;
+    box-shadow   : 0 10px 30px rgba(0, 0, 0, 0.3);
+    border       : 1px solid rgba(139, 0, 0, 0.2);
+}
+
+.breadcrumb-nav {
+    font-size    : 0.875rem;
+    color        : #9ca3af;
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb-nav ol {
+    display    : flex;
+    align-items: center;
+    gap        : 0.5rem;
+    flex-wrap  : wrap;
+}
+
+.breadcrumb-nav a {
+    color          : #d1d5db;
+    text-decoration: none;
+    transition     : color 0.3s ease;
+}
+
+.breadcrumb-nav a:hover {
+    color: #8b0000;
+}
+
+.breadcrumb-separator {
+    color : #4b5563;
+    margin: 0 0.25rem;
+}
+
+.breadcrumb-current {
+    color      : #8b0000;
+    font-weight: 500;
+}
+
+.page-header {
+    margin-bottom : 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom : 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.page-title {
+    color        : white;
+    font-size    : 2.5rem;
+    font-weight  : 700;
+    margin-bottom: 0.75rem;
+    line-height  : 1.2;
+}
+
+.page-description {
+    color      : #d1d5db;
+    font-size  : 1.125rem;
+    line-height: 1.6;
+}
+
+.prose-content {
+    color      : #d1d5db;
+    line-height: 1.7;
+}
+
+.prose-content h2 {
+    color         : white;
+    font-size     : 1.875rem;
+    font-weight   : 700;
+    margin-top    : 2.5rem;
+    margin-bottom : 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom : 2px solid rgba(139, 0, 0, 0.3);
+}
+
+.prose-content h3 {
+    color        : white;
+    font-size    : 1.5rem;
+    font-weight  : 600;
+    margin-top   : 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.25rem;
+    font-size    : 1.0625rem;
+}
+
+.prose-content a {
+    color          : #8b0000;
+    text-decoration: none;
+    transition     : all 0.3s ease;
+}
+
+.prose-content a:hover {
+    color              : #a30000;
+    border-bottom-color: rgba(139, 0, 0, 0.6);
+}
+
+.prose-content ul {
+    list-style-type: none;
+    padding-left   : 1.5rem;
+    margin-bottom  : 1.25rem;
+}
+
+.prose-content ul li {
+    position     : relative;
+    margin-bottom: 0.5rem;
+    padding-left : 1.5rem;
+}
+
+.prose-content ul li:before {
+    content         : '';
+    position        : absolute;
+    left            : 0;
+    top             : 0.75rem;
+    width           : 6px;
+    height          : 6px;
+    background-color: #8b0000;
+    border-radius   : 50%;
+}
+
+.prose-content ol {
+    padding-left : 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.prose-content ol li {
+    margin-bottom: 0.5rem;
+    padding-left : 0.5rem;
+}
+
+.prose-content blockquote {
+    border-left  : 4px solid #8b0000;
+    padding-left : 1rem;
+    margin       : 1.5rem 0;
+    color        : #9ca3af;
+    font-style   : italic;
+    background   : rgba(139, 0, 0, 0.05);
+    padding      : 1rem 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose-content code {
+    background   : rgba(139, 0, 0, 0.1);
+    color        : #fca5a5;
+    padding      : 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size    : 0.875rem;
+    font-family  : 'Courier New', monospace;
+    font-display : swap;
+}
+
+.prose-content pre {
+    background   : rgba(15, 15, 15, 0.8);
+    padding      : 1rem;
+    border-radius: 0.5rem;
+    overflow-x   : auto;
+    margin       : 1.5rem 0;
+    border       : 1px solid rgba(139, 0, 0, 0.2);
+}
+
+.page-footer-nav {
+    margin-top : 3rem;
+    padding-top: 1.5rem;
+    border-top : 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.footer-nav-links {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    flex-wrap      : wrap;
+    gap            : 1rem;
+}
+
+.footer-nav-link {
+    display        : flex;
+    align-items    : center;
+    gap            : 0.5rem;
+    color          : #9ca3af;
+    text-decoration: none;
+    font-weight    : 500;
+    transition     : all 0.3s ease;
+    padding        : 0.5rem 1rem;
+    border-radius  : 0.5rem;
+    background     : rgba(255, 0, 0, 0.10);
+}
+
+.footer-nav-link:hover {
+    color     : #8b0000;
+    background: rgba(139, 0, 0, 0.1);
+    transform : translateX(-3px);
+}
+
+.footer-nav-link:last-child:hover {
+    transform: translateX(3px);
+}
+
+.footer-nav-link i {
+    font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+    .internal-content-container {
+        padding      : 1.5rem;
+        margin       : 0 1rem;
+        border-radius: 0.75rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .page-description {
+        font-size: 1rem;
+    }
+
+    .prose-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .prose-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .footer-nav-links {
+        flex-direction: column;
+        align-items   : flex-start;
+    }
+
+    .footer-nav-link {
+        width          : 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 480px) {
+    .internal-content-background {
+        padding-top: 100px;
+    }
+
+    .internal-content-container {
+        padding      : 1rem;
+        margin       : 0 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+    }
+
+    .breadcrumb-nav {
+        font-size: 0.75rem;
+    }
+
+    .prose-content p {
+        font-size: 1rem;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity  : 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity  : 1;
+        transform: translateY(0);
+    }
+}
+
+.internal-content-container {
+    animation: fadeInUp 0.6s ease-out;
+}

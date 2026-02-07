@@ -1,0 +1,56 @@
+---
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+}
+
+const { title = "", description = "", url = Astro.url.pathname } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+  <head>
+    <meta
+      name="google-site-verification"
+      content="oszP5Xa_6DV9jyvvykj0HuRCf_1YqwxqkkKyYY3MSwg"
+    />
+
+    <Head title={title} description={description} url={url} />
+    <link
+      rel="preload"
+      href="/web/search-index.json"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <script src="/web/js/load-minisearch.js" defer></script>
+  </head>
+
+  <script src="/web/assets/js/misc.min.js" defer></script>
+
+  <body class="bg-dark-bg text-gray-100 min-h-screen flex flex-col">
+    <Header />
+
+    <main class="flex-grow container mx-auto px-4 max-w-6xl">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <button
+      id="back-to-top"
+      class="back-to-top-btn fixed bottom-8 right-8 w-12 h-12 text-white flex items-center justify-center opacity-0 transition-opacity duration-300 z-40 hover:bg-red-600"
+      aria-label="Вернуться наверх"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="/web/assets/js/back-to-top.min.js" defer></script>
+  </body>
+</html>

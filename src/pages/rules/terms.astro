@@ -1,0 +1,266 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const title = "Термины и Нарушение";
+const parent = "Правила проекта";
+---
+
+<PageLayout {title} {parent}>
+    <div class="rules">
+        <div class="section">
+            <h2>ТЕРМИНЫ И НАРУШЕНИЯ</h2>
+
+            <div class="subsection">
+                <h3>1. Боевое поведение</h3>
+
+                <table class="terms-table">
+                    <thead>
+                        <tr>
+                            <th>Термин</th>
+                            <th>Описание</th>
+                            <th>Наказание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>DM (DeathMatch)</strong></td>
+                            <td
+                                >Убийство или нанесение урона без веской
+                                RP-причины.</td
+                            >
+                            <td class="punishment">деморган ~ 30 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RDM (Random DM)</strong></td>
+                            <td
+                                >Массовое убийство/урон по 3+ игрокам без
+                                причины.</td
+                            >
+                            <td class="punishment">деморган ~ 50 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FD (Free Damage)</strong></td>
+                            <td
+                                >Урон по персонажу/транспорту без RP-оснований и
+                                отыгровки.</td
+                            >
+                            <td class="punishment">деморган ~ 10 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SK (Spawn Kill)</strong></td>
+                            <td>Убийство на месте появления (респауне).</td>
+                            <td class="punishment">деморган ~ 25 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RK (Revenge Kill)</strong></td>
+                            <td
+                                >Возвращение на место смерти ради мести и
+                                убийства.</td
+                            >
+                            <td class="punishment">деморган ~ 30 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TK (Team Kill)</strong></td>
+                            <td
+                                >Убийство члена своей фракции/команды без
+                                RP-повода.</td
+                            >
+                            <td class="punishment">деморган ~ 30 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FF (Friendly Fire)</strong></td>
+                            <td>Урон своим (без убийства) без RP-причины.</td>
+                            <td class="punishment">деморган ~ 15 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DB (Drive By)</strong></td>
+                            <td>Убийство/урон транспортом.</td>
+                            <td class="punishment">деморган ~ 35 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RDB (Random DriveBy)</strong></td>
+                            <td
+                                >Массовый наезд/урон по 3+ игрокам без причины.</td
+                            >
+                            <td class="punishment">деморган ~ 60 минут</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="subsection">
+                <h3>2. RP-логика</h3>
+
+                <table class="terms-table">
+                    <thead>
+                        <tr>
+                            <th>Термин</th>
+                            <th>Описание</th>
+                            <th>Наказание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PG (PowerGaming)</strong></td>
+                            <td
+                                >Нереалистичные действия, преувеличение
+                                возможностей персонажа, игнор боли/страха.</td
+                            >
+                            <td class="punishment">деморган ~ 30 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MG (MetaGaming)</strong></td>
+                            <td
+                                >Использование OOC-информации в IC (Discord,
+                                стримы и т.п.).</td
+                            >
+                            <td class="punishment">деморган ~ 120 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NonRP / NRP</strong></td>
+                            <td
+                                >Любое поведение, нарушающее реализм RP
+                                (клоунада, шутки в серьёзных сценах, нелогичные
+                                действия).</td
+                            >
+                            <td class="punishment"
+                                >деморган ~ 20 минут и выше</td
+                            >
+                        </tr>
+                        <tr>
+                            <td><strong>NLR (New Life Rule)</strong></td>
+                            <td
+                                >После смерти персонаж не помнит обстоятельств
+                                гибели, не мстит, не вызывает полицию по факту
+                                своей смерти и не требует вернуть потерянное.
+                                Запрещено возвращаться на место смерти в течение
+                                5-10 минут (конкретное время устанавливается
+                                сервером).</td
+                            >
+                            <td class="punishment">деморган ~ 30 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BH (Bunny Hopping)</strong></td>
+                            <td>Постоянные прыжки без RP-смысла.</td>
+                            <td class="punishment">деморган ~ 15 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VehicleHopping (VH)</strong></td>
+                            <td
+                                >Прыжки/выход из движущегося транспорта ради
+                                ускорения без логики.</td
+                            >
+                            <td class="punishment">деморган ~ 15 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mehan</strong></td>
+                            <td
+                                >Злоупотребление механикой движка без
+                                RP-отыгровки.</td
+                            >
+                            <td class="punishment">деморган ~ 60 минут</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LeaveRP (LRP)</strong></td>
+                            <td
+                                >Выход с сервера или уход из RP-ситуации для
+                                избежания последствий.</td
+                            >
+                            <td class="punishment">Бан ~ 60 минут</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="subsection">
+                <h3>3. Транспорт</h3>
+                <ul>
+                    <li>
+                        <strong>NRD (NonRP Drive)</strong> — нереалистичное вождение:
+                        <ul>
+                            <li>
+                                езда по горам, крышам, камням на обычной машине;
+                            </li>
+                            <li>постоянная езда по ж/д путям;</li>
+                            <li>манёвры, не соответствующие физике авто.</li>
+                        </ul>
+                    </li>
+                    <li class="punishment">
+                        Исключение: спецтранспорт/внедорожники по назначению.
+                    </li>
+                    <li class="punishment">Наказание: деморган ~ 20 минут.</li>
+
+                    <li>
+                        <strong>Модификации авто:</strong>
+                        <ul>
+                            <li>тюнинг должен быть реалистичным;</li>
+                            <li>номерной знак не закрывается и читается;</li>
+                            <li>номера без мата, непристойностей и мемов;</li>
+                            <li>перевозимые объекты логично размещены;</li>
+                            <li>
+                                сейфы/ящики перевозить только на грузовых
+                                машинах, либо на ТС с багажником.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>4. IC / OOC</h3>
+                <ul>
+                    <li>
+                        <strong>IC (In Character)</strong> — внутриигровые действия
+                        и информация персонажа.
+                    </li>
+                    <li>
+                        <strong>OOC (Out Of Character)</strong> — всё вне образа персонажа
+                        (реальная личность, Discord и т.п.).
+                    </li>
+                    <li>Смешивать IC и OOC в корыстных целях запрещено.</li>
+                    <li>
+                        <strong>AFK (Away From Keyboard)</strong> — отойти можно только
+                        вне RP-сцен или в безопасном месте.
+                    </li>
+                    <li class="punishment">
+                        Уход в AFK для избежания задержания/перестрелки
+                        приравнивается к LeaveRP.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>5. Зоны и имущество</h3>
+                <ul>
+                    <li>
+                        <strong>ЗЗ (Зелёная Зона):</strong>
+                        <ul>
+                            <li>
+                                территории с видеонаблюдением и повышенной
+                                безопасностью (госучреждения, вокзалы, больницы
+                                и т.п.);
+                            </li>
+                            <li>места массового скопления 5+ игроков.</li>
+                        </ul>
+                    </li>
+                    <li class="punishment">
+                        Любое серьёзное нарушение в ЗЗ считается зафиксированным
+                        и влечёт серьёзные IC/OOC последствия.
+                    </li>
+
+                    <li>
+                        <strong>ХЗО (Хранение запрещённого оружия)</strong> — хранение
+                        фракционного, военного, служебного и иного запрещённого оружия
+                        без RP-оснований.
+                    </li>
+
+                    <li>
+                        <strong>NRP-баррикада (NRPB)</strong> — установка объектов
+                        вне своей собственности или в местах, мешающих нормальному
+                        RP и передвижению, с целью абуза.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</PageLayout>

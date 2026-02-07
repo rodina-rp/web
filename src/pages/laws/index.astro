@@ -1,0 +1,109 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const title = "Законодательство";
+---
+
+<PageLayout title={title}>
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div class="flex items-center gap-3 mb-4">
+          <i class="fas fa-book text-2xl text-accent-red"></i>
+          <h1 class="text-xl md:text-2xl font-semibold text-white">
+            Нормативные документы:
+          </h1>
+        </div>
+
+        <div class="space-y-3 pl-4">
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/constitution/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Конституция Российской Федерации
+            </a>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/procedural-code/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Процессуальный Кодекс
+            </a>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/criminal-code/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Уголовный Кодекс
+            </a>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/administrative-code/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              КоАП РФ
+            </a>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/prosecutor-law/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Закон о Прокуратуре
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4 md:mt-10">
+        <div class="space-y-3 pl-4">
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/fsb-law/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Закон о ФСБ
+            </a>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/ng-law/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Закон о Росгвардии
+            </a>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/police-law/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Закон о Полиции
+            </a>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary-red mr-3">•</span>
+            <a
+              href="/web/laws/health-law/"
+              class="text-lg text-gray-300 hover:text-white hover:underline transition-colors"
+            >
+              Закон о Минздраве
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></PageLayout
+>

@@ -1,0 +1,888 @@
+.hero-section {
+    all    : initial;
+    display: block;
+}
+
+/* ============================================
+    1. ОСНОВНОЙ КОНТЕЙНЕР HERO
+    ============================================ */
+.hero-wrapper {
+    margin         : 0;
+    padding        : 0;
+    width          : 100vw;
+    position       : relative;
+    left           : 50%;
+    right          : 50%;
+    margin-left    : -50vw;
+    margin-right   : -50vw;
+    min-height     : 100vh;
+    height         : 100vh;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    overflow       : hidden;
+    box-sizing     : border-box;
+}
+
+.hero-wrapper::before {
+    content       : '';
+    position      : absolute;
+    top           : 1rem;
+    left          : 0;
+    width         : 100%;
+    height        : 0;
+    z-index       : 5;
+    pointer-events: none;
+}
+
+/* ============================================
+    2. ВИДЕО
+    ============================================ */
+.hero-video {
+    position       : absolute;
+    top            : 0;
+    left           : 0;
+    width          : 100vw;
+    height         : 100%;
+    object-fit     : cover;
+    z-index        : 1;
+    object-position: center top;
+}
+
+.hero-overlay {
+    position: absolute;
+    top     : 0;
+    left    : 0;
+    width   : 100vw;
+    height  : 100%;
+    background:
+        linear-gradient(to bottom,
+            rgba(10, 10, 10, 0.98) 0%,
+            rgba(26, 10, 10, 0.92) 25%,
+            rgba(26, 10, 10, 0.88) 50%,
+            rgba(26, 10, 10, 0.85) 75%,
+            rgba(10, 10, 10, 0.95) 100%),
+        radial-gradient(ellipse at center 65%,
+            rgba(139, 0, 0, 0.18) 0%,
+            rgba(139, 0, 0, 0.08) 25%,
+            rgba(139, 0, 0, 0.02) 50%,
+            transparent 70%),
+        repeating-linear-gradient(45deg,
+            transparent,
+            transparent 1px,
+            rgba(139, 0, 0, 0.02) 1px,
+            rgba(139, 0, 0, 0.02) 2px);
+    z-index: 2;
+}
+
+/* ============================================
+    3. КОНТЕНТ
+    ============================================ */
+.hero-content {
+    position       : relative;
+    z-index        : 10;
+    width          : 100%;
+    max-width      : 1200px;
+    margin         : 0 auto;
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+    text-align     : center;
+    padding        : 2rem 1rem;
+    box-sizing     : border-box;
+}
+
+/* ============================================
+    4. ТИПОГРАФИКА
+    ============================================ */
+.hero-title {
+    color        : white;
+    font-weight  : 800;
+    line-height  : 1.1;
+    margin-bottom: 1rem;
+    font-size    : clamp(1.75rem, 7vw, 5rem);
+    text-shadow  : 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title .text-red {
+    color: #ec4b4b;
+}
+
+.hero-subtitle {
+    color        : #d1d5db;
+    font-weight  : 400;
+    line-height  : 1.5;
+    margin-bottom: 2rem;
+    font-size    : clamp(0.875rem, 2.5vw, 2rem);
+    max-width    : 800px;
+    text-shadow  : 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+    5. КНОПКИ С АДАПТИВНОСТЬЮ
+    ============================================ */
+.hero-buttons {
+    display        : flex;
+    gap            : 1.5rem;
+    flex-wrap      : wrap;
+    justify-content: center;
+    align-items    : center;
+    width          : 100%;
+    max-width      : 800px;
+    margin-top     : 1rem;
+}
+
+.hero-button {
+    display        : inline-flex;
+    align-items    : center;
+    justify-content: center;
+    gap            : 0.75rem;
+    padding        : 1rem 2rem;
+    font-weight    : 700;
+    border-radius  : 0.75rem;
+    text-decoration: none;
+    transition     : all 0.3s ease;
+    font-size      : clamp(0.75rem, 1.8vw, 1.125rem);
+    min-width      : 180px;
+    box-shadow     : 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-button:hover {
+    transform : translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.hero-button-play {
+    background: linear-gradient(90deg, #ec4b4b, #ff416c);
+    color     : white;
+}
+
+.hero-button-play:hover {
+    box-shadow: 0 10px 25px rgba(236, 75, 75, 0.4);
+}
+
+.hero-button-discord {
+    background: #5865F2;
+    color     : white;
+}
+
+.hero-button-discord:hover {
+    box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+}
+
+/* ============================================
+    6. ОСНОВНОЙ КОНТЕЙНЕР ДЛЯ ВСЕХ СЕКЦИЙ С ФОНОМ
+    ============================================ */
+.main-content-container {
+    width     : 100%;
+    max-width : 1200px;
+    margin    : 0 auto;
+    padding   : 4rem 1rem;
+    box-sizing: border-box;
+    position  : relative;
+    z-index   : 1;
+}
+
+.content-background {
+    min-height: 100vh;
+    z-index   : 1;
+}
+
+.content-background::before {
+    content : '';
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    right   : 0;
+    bottom  : 0;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(139, 0, 0, 0.03) 10px,
+            rgba(139, 0, 0, 0.03) 20px);
+    border        : none;
+    padding       : 0;
+    pointer-events: none;
+    z-index       : 0;
+}
+
+/* ============================================
+    7.2 Секция "Скриншоты с сервера"
+    ============================================ */
+.screenshots-section {
+    margin-bottom: 5rem;
+    position     : relative;
+    z-index      : 2;
+}
+
+.screenshots-title {
+    text-align   : center;
+    color        : white;
+    font-size    : 2.5rem;
+    font-weight  : 700;
+    margin-bottom: 3rem;
+}
+
+.screenshots-gallery {
+    position     : relative;
+    width        : 100%;
+    overflow     : hidden;
+    border-radius: 1rem;
+    background   : rgba(26, 10, 10, 0.3);
+    border       : 1px solid rgba(139, 0, 0, 0.2);
+}
+
+.screenshots-slides {
+    display   : flex;
+    transition: transform 0.5s ease-in-out;
+    height    : 500px;
+}
+
+.screenshot-slide {
+    flex           : 0 0 100%;
+    min-width      : 100%;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    padding        : 0;
+    position       : relative;
+}
+
+.screenshot-slide img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+    display   : block;
+    transition: transform 0.3s ease;
+}
+
+.screenshot-slide:hover img {
+    transform: scale(1.02);
+}
+
+
+.screenshot-info {
+    position: absolute;
+    bottom  : 0;
+    left    : 0;
+    right   : 0;
+    background: linear-gradient(to top,
+            rgba(10, 10, 10, 0.95) 0%,
+            rgba(10, 10, 10, 0.7) 50%,
+            transparent 100%);
+    padding   : 2rem 1.5rem 1rem;
+    color     : white;
+    opacity   : 0;
+    transition: opacity 0.3s ease;
+}
+
+.screenshot-slide:hover .screenshot-info {
+    opacity: 1;
+}
+
+.screenshot-info h3 {
+    font-size    : 1.25rem;
+    font-weight  : 600;
+    margin-bottom: 0.5rem;
+    color        : white;
+}
+
+.screenshot-info p {
+    font-size: 0.875rem;
+    color    : #d1d5db;
+    opacity  : 0.9;
+}
+
+
+.screenshot-nav {
+    position       : absolute;
+    top            : 50%;
+    transform      : translateY(-50%);
+    width          : 60px;
+    height         : 60px;
+    background     : rgba(139, 0, 0, 0.85);
+    border         : none;
+    border-radius  : 50%;
+    color          : white;
+    font-size      : 1.5rem;
+    cursor         : pointer;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    transition     : all 0.3s ease;
+    z-index        : 20;
+    backdrop-filter: blur(10px);
+    box-shadow     : 0 4px 20px rgba(139, 0, 0, 0.3);
+}
+
+.screenshot-nav:hover {
+    background: rgba(139, 0, 0, 1);
+    transform : translateY(-50%) scale(1.15);
+    box-shadow: 0 6px 30px rgba(139, 0, 0, 0.5);
+}
+
+.screenshot-nav-prev {
+    left: 2rem;
+}
+
+.screenshot-nav-next {
+    right: 2rem;
+}
+
+.screenshot-indicators {
+    display        : flex;
+    justify-content: center;
+    gap            : 0.75rem;
+    margin-top     : 2rem;
+    padding        : 1rem;
+    background     : rgba(26, 10, 10, 0.3);
+    border-radius  : 1rem;
+    border         : 1px solid rgba(139, 0, 0, 0.1);
+}
+
+.screenshot-indicator {
+    width        : 14px;
+    height       : 14px;
+    border-radius: 50%;
+    background   : rgba(255, 255, 255, 0.15);
+    cursor       : pointer;
+    transition   : all 0.3s ease;
+    position     : relative;
+    border       : 2px solid transparent;
+}
+
+.screenshot-indicator:hover {
+    background: rgba(139, 0, 0, 0.4);
+    transform : scale(1.3);
+}
+
+.screenshot-indicator.active {
+    background  : #8b0000;
+    transform   : scale(1.3);
+    box-shadow  : 0 0 15px rgba(139, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.screenshot-indicator.active::after {
+    content      : '';
+    position     : absolute;
+    top          : 50%;
+    left         : 50%;
+    transform    : translate(-50%, -50%);
+    width        : 6px;
+    height       : 6px;
+    border-radius: 50%;
+}
+
+.screenshot-counter {
+    position       : absolute;
+    bottom         : 1rem;
+    right          : 1rem;
+    background     : rgba(139, 0, 0, 0.8);
+    color          : white;
+    padding        : 0.5rem 1rem;
+    border-radius  : 2rem;
+    font-size      : 0.875rem;
+    font-weight    : 600;
+    z-index        : 10;
+    backdrop-filter: blur(10px);
+    border         : 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.customization-section {
+    margin-bottom: 5rem;
+    position     : relative;
+    z-index      : 2;
+}
+
+.customization-grid {
+    display              : grid;
+    grid-template-columns: 1fr;
+    gap                  : 3rem;
+    align-items          : center;
+}
+
+@media (min-width: 768px) {
+    .customization-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.customization-image-container {
+    position     : relative;
+    border-radius: 1rem;
+    overflow     : hidden;
+    box-shadow   : 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition   : transform 0.3s ease;
+    background   : rgba(26, 10, 10, 0.3);
+    border       : 1px solid rgba(139, 0, 0, 0.2);
+}
+
+.customization-image-container:hover {
+    transform   : translateY(-5px);
+    box-shadow  : 0 15px 35px rgba(139, 0, 0, 0.2);
+    border-color: rgba(139, 0, 0, 0.4);
+}
+
+.customization-image-container img {
+    width     : 100%;
+    height    : 300px;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.customization-image-container:hover img {
+    transform: scale(1.05);
+}
+
+.customization-title {
+    color        : white;
+    font-size    : 2.5rem;
+    font-weight  : 700;
+    margin-bottom: 1.5rem;
+    line-height  : 1.2;
+}
+
+.customization-text {
+    color        : #d1d5db;
+    font-size    : 1.125rem;
+    line-height  : 1.6;
+    margin-bottom: 2rem;
+}
+
+.customization-text strong {
+    color      : #8b0000;
+    font-weight: 600;
+}
+
+.customization-features {
+    display              : grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap                  : 1rem;
+}
+
+.customization-feature {
+    background   : rgba(30, 30, 30, 0.5);
+    border       : 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: 0.75rem;
+    padding      : 1.25rem;
+    transition   : all 0.3s ease;
+}
+
+.customization-feature:hover {
+    transform   : translateY(-3px);
+    border-color: #8b0000;
+    box-shadow  : 0 10px 25px rgba(139, 0, 0, 0.2);
+    background  : rgba(139, 0, 0, 0.1);
+}
+
+.customization-feature-icon {
+    font-size    : 1.5rem;
+    color        : #8b0000;
+    margin-bottom: 0.75rem;
+}
+
+.customization-feature-title {
+    color        : white;
+    font-weight  : 600;
+    margin-bottom: 0.5rem;
+    font-size    : 1rem;
+}
+
+.customization-feature-description {
+    color      : #9ca3af;
+    font-size  : 0.875rem;
+    line-height: 1.4;
+}
+
+/* ============================================
+    8. АДАПТИВНОСТЬ ДЛЯ РАЗНЫХ УСТРОЙСТВ
+    ============================================ */
+
+@media (min-width: 1400px) {
+    .hero-content {
+        padding: 3rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.7rem;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .hero-content {
+        padding: 2.5rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 4.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.875rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .hero-content {
+        padding: 2rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 3.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.625rem;
+    }
+
+    .hero-button {
+        padding  : 0.875rem 1.75rem;
+        font-size: 1rem;
+        min-width: 160px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero-content {
+        padding: 1.75rem 1rem;
+    }
+
+    .hero-title {
+        font-size    : 3.25rem;
+        margin-bottom: 0.875rem;
+    }
+
+    .hero-subtitle {
+        font-size    : 1.375rem;
+        margin-bottom: 1.75rem;
+        line-height  : 1.4;
+    }
+
+    .hero-buttons {
+        gap      : 1.25rem;
+        max-width: 600px;
+    }
+
+    .hero-button {
+        padding  : 0.875rem 1.5rem;
+        font-size: 0.9375rem;
+        min-width: 150px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .hero-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .hero-title {
+        font-size    : 2.625rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+        font-size    : 1.25rem;
+        margin-bottom: 1.5rem;
+        line-height  : 1.35;
+    }
+
+    .hero-subtitle br {
+        display: none;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap           : 1rem;
+        width         : 100%;
+        max-width     : 350px;
+    }
+
+    .hero-button {
+        width    : 100%;
+        padding  : 0.875rem 1.5rem;
+        font-size: 0.9375rem;
+        min-width: auto;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 575px) {
+    .hero-content {
+        padding: 1.25rem 0.75rem;
+    }
+
+    .hero-title {
+        font-size    : 2.25rem;
+        margin-bottom: 0.625rem;
+    }
+
+    .hero-subtitle {
+        font-size    : 1.125rem;
+        margin-bottom: 1.25rem;
+        line-height  : 1.3;
+    }
+
+    .hero-buttons {
+        gap      : 0.875rem;
+        max-width: 320px;
+    }
+
+    .hero-button {
+        padding  : 0.75rem 1.25rem;
+        font-size: 0.875rem;
+    }
+
+    .hero-button i {
+        font-size: 0.875rem;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 424px) {
+    .hero-content {
+        padding: 1rem 0.5rem;
+    }
+
+    .hero-title {
+        font-size    : 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+        font-size    : 1rem;
+        margin-bottom: 1.125rem;
+        line-height  : 1.25;
+    }
+
+    .hero-buttons {
+        gap      : 0.75rem;
+        max-width: 280px;
+    }
+
+    .hero-button {
+        padding  : 0.625rem 1rem;
+        font-size: 0.8125rem;
+    }
+
+    .hero-button i {
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 374px) {
+    .hero-content {
+        padding: 0.875rem 0.5rem;
+    }
+
+    .hero-title {
+        font-size    : 1.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+        font-size    : 0.9375rem;
+        margin-bottom: 1rem;
+        line-height  : 1.2;
+    }
+
+    .hero-buttons {
+        gap      : 0.625rem;
+        max-width: 250px;
+    }
+
+    .hero-button {
+        padding  : 0.5625rem 0.875rem;
+        font-size: 0.75rem;
+    }
+
+    .hero-button i {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .hero-content {
+        padding: 0.75rem 0.375rem;
+    }
+
+    .hero-title {
+        font-size    : 1.5rem;
+        margin-bottom: 0.375rem;
+    }
+
+    .hero-subtitle {
+        font-size    : 0.875rem;
+        margin-bottom: 0.875rem;
+    }
+
+    .hero-buttons {
+        gap      : 0.5rem;
+        max-width: 220px;
+    }
+
+    .hero-button {
+        padding  : 0.5rem 0.75rem;
+        font-size: 0.6875rem;
+    }
+
+    .hero-button i {
+        font-size: 0.6875rem;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    .hero-wrapper {
+        min-height: -webkit-fill-available;
+        height    : -webkit-fill-available;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-content-container {
+        padding: 3rem 1rem;
+    }
+
+    .russian-realities-title,
+    .screenshots-title,
+    .customization-title,
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    .screenshots-slides {
+        height: 350px;
+    }
+
+    .screenshot-nav {
+        width    : 50px;
+        height   : 50px;
+        font-size: 1.25rem;
+    }
+
+    .screenshot-nav-prev {
+        left: 1rem;
+    }
+
+    .screenshot-nav-next {
+        right: 1rem;
+    }
+
+    .screenshot-info {
+        padding: 1.5rem 1rem 0.5rem;
+    }
+
+    .screenshot-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .screenshot-info p {
+        font-size: 0.8rem;
+    }
+
+    .screenshot-indicators {
+        gap    : 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .screenshot-indicator {
+        width : 10px;
+        height: 10px;
+    }
+
+    .customization-features {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .russian-realities-title,
+    .screenshots-title,
+    .customization-title,
+    .cta-title {
+        font-size: 1.75rem;
+    }
+
+    .russian-realities-text,
+    .customization-text,
+    .cta-text {
+        font-size: 1rem;
+    }
+
+    .screenshots-slides {
+        height: 250px;
+    }
+
+    .russian-realities-image-container img,
+    .customization-image-container img {
+        height: 250px;
+    }
+}
+
+.content-background .main-content-container>* {
+    position: relative;
+    z-index : 2;
+}
+
+.russian-realities-section {
+    background   : rgba(10, 10, 10, 0.7);
+    border-radius: 1rem;
+    padding      : 2rem;
+    margin-bottom: 3rem;
+    border       : 1px solid rgba(139, 0, 0, 0.1);
+}
+
+.screenshots-section {
+    background   : rgba(10, 10, 10, 0.7);
+    border-radius: 1rem;
+    padding      : 2rem;
+    margin-bottom: 3rem;
+    border       : 1px solid rgba(139, 0, 0, 0.1);
+}
+
+.customization-section {
+    background   : rgba(10, 10, 10, 0.7);
+    border-radius: 1rem;
+    padding      : 2rem;
+    margin-bottom: 3rem;
+    border       : 1px solid rgba(139, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+
+    .russian-realities-section,
+    .screenshots-section,
+    .customization-section {
+        padding      : 1.5rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity  : 0;
+        transform: translateX(10px);
+    }
+
+    to {
+        opacity  : 1;
+        transform: translateX(0);
+    }
+}
+
+.screenshot-slide {
+    animation: slideIn 0.5s ease-out;
+}

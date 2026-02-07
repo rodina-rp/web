@@ -1,0 +1,102 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+  siteTitle?: string;
+}
+
+const {
+  title = "",
+  description = "РОЛЕВОЙ ПРОЕКТ RODINA RP в Unturned. Российская ролевая игра, законы, фракции, интерактивная карта.",
+  url = "/",
+  siteTitle = "RODINA RP",
+} = Astro.props;
+
+const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+const fullUrl =
+  typeof import.meta.env.BASE_URL !== "undefined"
+    ? import.meta.env.BASE_URL + url.replace(/^\//, "")
+    : url;
+const baseUrl =
+  typeof import.meta.env.SITE !== "undefined"
+    ? import.meta.env.SITE
+    : "https://rodina-rp.github.io";
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{fullTitle}</title>
+
+<link rel="canonical" href={baseUrl + url} />
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+  (function (m, e, t, r, i, k, a) {
+    m[i] =
+      m[i] ||
+      function () {
+        (m[i].a = m[i].a || []).push(arguments);
+      };
+    m[i].l = 1 * new Date();
+    for (var j = 0; j < document.scripts.length; j++) {
+      if (document.scripts[j].src === r) {
+        return;
+      }
+    }
+    ((k = e.createElement(t)),
+      (a = e.getElementsByTagName(t)[0]),
+      (k.async = 1),
+      (k.src = r),
+      a.parentNode.insertBefore(k, a));
+  })(
+    window,
+    document,
+    "script",
+    "https://mc.yandex.ru/metrika/tag.js?id=106618842",
+    "ym",
+  );
+
+  ym(106618842, "init", {
+    ssr: true,
+    clickmap: true,
+    referrer: document.referrer,
+    url: location.href,
+    accurateTrackBounce: true,
+    trackLinks: true,
+  });
+</script>
+<noscript
+  ><div>
+    <img
+      src="https://mc.yandex.ru/watch/106618842"
+      style="position:absolute; left:-9999px;"
+      alt=""
+    />
+  </div></noscript
+>
+<!-- /Yandex.Metrika counter -->
+
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="/web/assets/css/font-awesome.css" />
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="/web/assets/css/leaflet.css" />
+
+<meta name="description" content={description} />
+<meta
+  name="keywords"
+  content="unturned, ролевая игра, rp, российский сервер, rodina, правила, законы, карта"
+/>
+<meta name="author" content="RODINA RP" />
+
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={baseUrl + "/web/assets/img/kpz.webp"} />
+<meta property="og:url" content={baseUrl + url} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="RODINA RP" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={baseUrl + "/web/assets/img/kpz.webp"} />

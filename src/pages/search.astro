@@ -1,0 +1,483 @@
+---
+import PageLayout_B from '../layouts/PageLayout_B.astro';
+
+const { q } = Astro.params;
+const searchQuery = q || '';
+---
+
+<PageLayout_B title={`Поиск: ${searchQuery || 'Все страницы'}`}>
+  <div class="mx-auto px-4 py-8 max-w-6xl">    
+    <div class="mb-8">
+      <div class="relative max-w-3xl mx-auto">
+        <div class="relative">
+          <input
+            type="text"
+            id="advanced-search-input"
+            placeholder="Поиск по фракциям и правилам..."
+            value={searchQuery}
+            class="w-full px-3 pl-9 pr-9 py-2 bg-dark-bg/50 border border-primary-red/30 rounded-lg text-white text-xs lg:text-sm placeholder-gray-500 focus:outline-none focus:border-primary-red transition-all duration-200"
+            autocomplete="off"
+          />
+          <button 
+            id="advanced-clear-search"
+            class="absolute right-2.5 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-white transition-colors hidden"
+            aria-label="Очистить поиск"
+          >
+            <i class="fas fa-times text-sm"></i>
+          </button>
+          <i class="fas fa-magnifying-glass absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs lg:text-sm"></i>
+        </div>
+      </div>
+      
+      <div class="flex items-center justify-end max-w-3xl mx-auto mt-2">
+        <button id="advanced-toggle-filters" class="px-4 py-2 text-sm bg-dark-bg/80 border border-primary-red/30 rounded-lg text-gray-300 hover:text-white hover:border-primary-red/60 transition-colors duration-300 flex items-center gap-2">
+          <i class="fas fa-filter"></i>
+          <span>Фильтры</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="advanced-filters" class="hidden mb-8 p-6 bg-dark-bg/80 border border-primary-red/30 rounded-xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Категория</label>
+          <select id="advanced-category-filter" class="w-full px-4 py-2.5 bg-dark-bg border border-primary-red/30 rounded-lg text-white text-sm focus:outline-none focus:border-primary-red">
+            <option value="">Все категории</option>
+            <option value="Фракции">Фракции</option>
+            <option value="Законы">Законы</option>
+            <option value="Правила">Правила</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Сортировка</label>
+          <select id="advanced-sort-filter" class="w-full px-4 py-2.5 bg-dark-bg border border-primary-red/30 rounded-lg text-white text-sm focus:outline-none focus:border-primary-red">
+            <option value="relevance">По релевантности</option>
+            <option value="title">По названию</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex justify-end mt-2">
+        <button id="advanced-reset-filters" class="px-4 py-2 text-sm bg-dark-bg border border-primary-red/30 rounded-lg text-gray-300 hover:text-white hover:border-primary-red/60 transition-colors duration-300">
+          Сбросить фильтры
+        </button>
+      </div>
+    </div>
+
+    <div id="advanced-search-results" class="mb-10">
+      <div id="advanced-no-results" class="text-center py-16 text-gray-500">
+        <i class="fas fa-search text-5xl mb-6 opacity-50"></i>
+        <p class="text-lg">Введите поисковый запрос выше</p>
+      </div>
+    </div>
+
+    <div id="advanced-loading" class="hidden text-center py-16">
+      <div class="inline-block animate-spin rounded-full h-14 w-14 border-t-2 border-b-2 border-primary-red"></div>
+      <p class="mt-6 text-gray-400">Идет поиск...</p>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+        let searchInput = null;
+        let clearButton = null;
+        let resultsContainer = null;
+        let loading = null;
+        let filtersButton = null;
+        let filtersContainer = null;
+        let categoryFilter = null;
+        let sortFilter = null;
+        let resetFiltersButton = null;
+        let searchIndex = [];
+        let currentResults = [];
+        
+        async function loadSearchIndex() {
+            try {
+                const response = await fetch('/web/search-index.json');
+                if (!response.ok) {
+                    throw new Error('Не удалось загрузить индекс поиска');
+                }
+                const data = await response.json();
+                console.log('Данные загружены, количество записей:', data.length);
+                return data;
+            } catch (error) {
+                console.error('Ошибка загрузки индекса поиска:', error);
+                return [];
+            }
+        }
+        
+        function findContext(text, query, chars = 100) {
+            if (!text || !query) return text || '';
+            
+            const lowerText = text.toLowerCase();
+            const lowerQuery = query.toLowerCase();
+            const index = lowerText.indexOf(lowerQuery);
+            
+            if (index === -1) {
+                return text.substring(0, chars) + (text.length > chars ? '...' : '');
+            }
+            
+            const start = Math.max(0, index - 30);
+            const end = Math.min(text.length, index + lowerQuery.length + 70);
+            let result = text.substring(start, end);
+            
+            if (start > 0) result = '...' + result;
+            if (end < text.length) result = result + '...';
+            
+            return result;
+        }
+        
+        function highlightText(text, query) {
+            if (!text || !query) return text;
+            
+            try {
+                const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`(${escapedQuery})`, 'gi');
+                return text.replace(regex, '<span class="bg-primary-red/30 text-white px-1 rounded">$1</span>');
+            } catch (error) {
+                console.error('Ошибка при подсветке текста:', error);
+                return text;
+            }
+        }
+        
+        function cleanText(text) {
+            if (!text) return '';
+            return text.replace(/\s+/g, ' ').trim();
+        }
+        
+        function fixUrl(url) {
+            if (!url) return url;
+            
+            if (url.startsWith('/web')) {
+                return url;
+            }
+            
+            if (url.startsWith('http') || url.startsWith('#')) {
+                return url;
+            }
+            
+            return '/web' + (url.startsWith('/') ? url : '/' + url);
+        }
+        
+        function showDefaultMessage() {
+            if (!resultsContainer) return;
+            resultsContainer.innerHTML = `
+                <div class="text-center py-16 text-gray-500">
+                    <i class="fas fa-search text-5xl mb-6 opacity-50"></i>
+                    <p class="text-lg">Введите поисковый запрос выше</p>
+                </div>
+            `;
+        }
+        
+        function applyFiltersAndSort(results, query) {
+            let filteredResults = [...results];
+            
+            
+            if (categoryFilter && categoryFilter.value) {
+                const selectedCategory = categoryFilter.value;
+                console.log('Фильтруем по категории:', selectedCategory);
+                filteredResults = filteredResults.filter(item => item.category === selectedCategory);
+            }
+            
+            
+            if (sortFilter) {
+                const sortType = sortFilter.value || 'relevance';
+                console.log('Сортируем по:', sortType);
+                
+                if (sortType === 'title') {
+                    filteredResults.sort((a, b) => {
+                        const titleA = a.title?.toLowerCase() || '';
+                        const titleB = b.title?.toLowerCase() || '';
+                        return titleA.localeCompare(titleB);
+                    });
+                } else if (sortType === 'relevance') {
+                    
+                    
+                }
+            }
+            
+            return filteredResults;
+        }
+        
+        async function performFullSearch(query) {
+            console.log('Выполняем поиск по запросу:', query);
+            
+            if (!query.trim()) {
+                showDefaultMessage();
+                if (loading) loading.classList.add('hidden');
+                return;
+            }
+            
+            if (loading) {
+                loading.classList.remove('hidden');
+            }
+            
+            if (resultsContainer) {
+                resultsContainer.innerHTML = '';
+            }
+            
+            if (searchIndex.length === 0) {
+                console.log('Загружаем индекс поиска...');
+                searchIndex = await loadSearchIndex();
+                console.log('Загружено записей:', searchIndex.length);
+            }
+            
+            const normalizedQuery = query.toLowerCase().trim();
+            
+            
+            const titleMatches = searchIndex.filter(item => 
+                item.title && item.title.toLowerCase().includes(normalizedQuery)
+            );
+            
+            
+            const contentMatches = searchIndex.filter(item => 
+                item.content && item.content.toLowerCase().includes(normalizedQuery) &&
+                !titleMatches.includes(item)
+            );
+            
+            
+            currentResults = [...titleMatches, ...contentMatches];
+            console.log('Найдено результатов (до фильтрации):', currentResults.length);
+            
+            setTimeout(() => {
+                applyCurrentFilters();
+                if (loading) loading.classList.add('hidden');
+            }, 300);
+        }
+        
+        function applyCurrentFilters() {
+            if (!searchInput) return;
+            
+            const query = searchInput.value.trim();
+            if (!query) {
+                showDefaultMessage();
+                return;
+            }
+            
+            
+            let filteredResults = applyFiltersAndSort(currentResults, query);
+            console.log('Результатов после фильтрации:', filteredResults.length);
+            
+            displayFullResults(filteredResults, query);
+        }
+        
+        function displayFullResults(results, query) {
+            if (!resultsContainer) return;
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="text-center py-16 text-gray-500">
+                        <i class="fas fa-search text-5xl mb-6 opacity-50"></i>
+                        <p class="text-lg">Ничего не найдено для "${query}"</p>
+                        ${categoryFilter && categoryFilter.value ? 
+                            `<p class="text-sm mt-2">Попробуйте изменить фильтры или очистить категорию</p>` : 
+                            ''}
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            results.forEach(item => {
+                const cleanTitle = cleanText(item.title);
+                const cleanContent = cleanText(item.content);
+                const context = findContext(cleanContent, query, 100);
+                
+                const highlightedTitle = highlightText(cleanTitle, query);
+                const highlightedContent = highlightText(context, query);
+                
+                const fixedUrl = fixUrl(item.url);
+                
+                html += `
+                    <div class="bg-dark-bg/50 border border-primary-red/30 rounded-lg p-6 hover:border-primary-red/50 transition-colors mb-6">
+                        <h3 class="text-xl font-bold mb-3" style="margin-top: 0;">
+                            <a href="${fixedUrl}" class="text-white hover:text-primary-red transition-colors">${highlightedTitle}</a>
+                        </h3>
+                        <div class="text-gray-400 mb-4">
+                            ${highlightedContent}
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">${item.category || 'Другое'}</span>
+                            <a href="${fixedUrl}" class="inline-flex items-center text-primary-red hover:text-red-400 transition-colors">
+                                <span>Перейти к странице</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+        }
+        
+        function handleInput(e) {
+            const query = e.target.value.trim();
+            console.log('Ввод:', query);
+            
+            if (clearButton) {
+                if (query) {
+                    clearButton.classList.remove('hidden');
+                } else {
+                    clearButton.classList.add('hidden');
+                }
+            }
+            
+            if (query) {
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('q', query);
+                window.history.replaceState({}, '', newUrl);
+                
+                performFullSearch(query);
+            } else {
+                showDefaultMessage();
+                if (loading) loading.classList.add('hidden');
+            }
+        }
+        
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = e.target.value.trim();
+                console.log('Нажали Enter, запрос:', query);
+                
+                if (query) {
+                    if (window.location.pathname.includes('/search')) {
+                        const newUrl = new URL(window.location);
+                        newUrl.searchParams.set('q', query);
+                        window.history.replaceState({}, '', newUrl);
+                        performFullSearch(query);
+                    } else {
+                        window.location.href = `/web/search?q=${encodeURIComponent(query)}`;
+                    }
+                }
+            }
+        }
+        
+        function handleClearButton() {
+            console.log('Очистка поиска');
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.focus();
+            }
+            if (clearButton) {
+                clearButton.classList.add('hidden');
+            }
+            showDefaultMessage();
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.delete('q');
+            window.history.replaceState({}, '', newUrl);
+        }
+        
+        function handleFiltersButton() {
+            console.log('Переключение фильтров');
+            if (filtersContainer) {
+                filtersContainer.classList.toggle('hidden');
+            }
+        }
+        
+        function handleFilterChange() {
+            console.log('Изменение фильтра');
+            applyCurrentFilters();
+        }
+        
+        function handleResetFilters() {
+            console.log('Сброс фильтров');
+            if (categoryFilter) categoryFilter.value = '';
+            if (sortFilter) sortFilter.value = 'relevance';
+            applyCurrentFilters();
+        }
+        
+        function initSearch() {
+            console.log('Инициализация поиска...');
+            
+            searchInput = document.getElementById('advanced-search-input');
+            clearButton = document.getElementById('advanced-clear-search');
+            resultsContainer = document.getElementById('advanced-search-results');
+            loading = document.getElementById('advanced-loading');
+            filtersButton = document.getElementById('advanced-toggle-filters');
+            filtersContainer = document.getElementById('advanced-filters');
+            categoryFilter = document.getElementById('advanced-category-filter');
+            sortFilter = document.getElementById('advanced-sort-filter');
+            resetFiltersButton = document.getElementById('advanced-reset-filters');
+            
+            console.log('Найденные элементы:', {
+                searchInput: !!searchInput,
+                clearButton: !!clearButton,
+                resultsContainer: !!resultsContainer,
+                loading: !!loading,
+                filtersButton: !!filtersButton,
+                filtersContainer: !!filtersContainer,
+                categoryFilter: !!categoryFilter,
+                sortFilter: !!sortFilter,
+                resetFiltersButton: !!resetFiltersButton
+            });
+            
+            if (!searchInput || !resultsContainer) {
+                console.error('Не найдены необходимые элементы для поиска');
+                return;
+            }
+            
+            if (clearButton) {
+                clearButton.addEventListener('click', handleClearButton);
+            }
+            
+            if (filtersButton && filtersContainer) {
+                filtersButton.addEventListener('click', handleFiltersButton);
+            }
+            
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', handleFilterChange);
+            }
+            
+            if (sortFilter) {
+                sortFilter.addEventListener('change', handleFilterChange);
+            }
+            
+            if (resetFiltersButton) {
+                resetFiltersButton.addEventListener('click', handleResetFilters);
+            }
+            
+            searchInput.addEventListener('input', handleInput);
+            searchInput.addEventListener('keypress', handleKeyPress);
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q');
+            
+            if (searchQuery) {
+                console.log('Инициализируем поиск с запросом:', searchQuery);
+                searchInput.value = decodeURIComponent(searchQuery);
+                if (clearButton) clearButton.classList.remove('hidden');
+                performFullSearch(searchQuery);
+            } else {
+                console.log('Запрос не найден в URL');
+                showDefaultMessage();
+            }
+            
+            searchInput.focus();
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSearch);
+        } else {
+            initSearch();
+        }
+        
+        window.RODINA = window.RODINA || {};
+        window.RODINA.search = {
+            init: initSearch,
+            performSearch: performFullSearch,
+            debug: {
+                searchIndex: () => searchIndex,
+                currentResults: () => currentResults,
+                elements: () => ({
+                    searchInput,
+                    clearButton,
+                    resultsContainer,
+                    loading,
+                    categoryFilter,
+                    sortFilter
+                })
+            }
+        };
+    })();
+  </script>
+</PageLayout_B>

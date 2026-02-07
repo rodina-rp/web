@@ -1,0 +1,34 @@
+img[loading="lazy"] {
+    opacity    : 0;
+    filter     : blur(20px);
+    transition : opacity 0.8s ease-out, filter 0.4s ease-out !important;
+    will-change: opacity, filter;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+    filter : blur(0);
+}
+
+.russian-realities-image-container img[loading="lazy"],
+.customization-image-container img[loading="lazy"],
+.screenshot-slide img[loading="lazy"],
+.discord-faction-icon img[loading="lazy"],
+.discord-factions-image-container img[loading="lazy"] {
+    transition: opacity 0.8s ease-out, filter 0.4s ease-out, transform 0.7s ease !important;
+}
+
+.discord-faction-icon img[loading="lazy"] {
+    transform : scale(1);
+    transition: opacity 0.8s ease-out, filter 0.4s ease-out, transform 0.3s ease !important;
+}
+
+.discord-faction:hover .discord-faction-icon img[loading="lazy"] {
+    transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    img[loading="lazy"] {
+        transition: opacity 0.3s ease !important;
+    }
+}

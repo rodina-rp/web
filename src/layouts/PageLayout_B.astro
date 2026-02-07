@@ -1,0 +1,49 @@
+---
+import Base from "../layouts/Base.astro";
+
+export interface Props {
+  title: string;
+  description?: string;
+  parent?: string;
+}
+
+const { title, description, parent } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <div class="internal-content-background my-8">
+    <div class="internal-content-container">
+      <div class="prose-content">
+        <slot />
+      </div>
+
+      <div class="page-footer-nav">
+        <div class="footer-nav-links">
+          <a href="/web/" class="footer-nav-link">
+            <i class="fas fa-arrow-left"></i>
+            На главную
+          </a>
+          {
+            parent && (
+              <a
+                href={
+                  parent === "Правила проекта"
+                    ? "/web/rules/"
+                    : parent === "Законодательство"
+                      ? "/web/laws/"
+                      : parent === "Фракции и Семьи"
+                        ? "/web/factions/"
+                        : "#"
+                }
+                class="footer-nav-link"
+              >
+                К списку разделов
+                <i class="fas fa-arrow-right" />
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

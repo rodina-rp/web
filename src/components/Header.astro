@@ -1,0 +1,512 @@
+---
+import { navigationData } from "../data/navigation.js";
+
+const currentPath = Astro.url.pathname;
+const isActive = (url: string) =>
+  currentPath === url || currentPath.startsWith(url + "/");
+
+export interface Props {
+  siteTitle?: string;
+}
+
+const { siteTitle = "RODINA RP" } = Astro.props;
+
+const addWebPrefix = (url: string) => {
+  if (
+    url.startsWith("http") ||
+    url.startsWith("#") ||
+    url.startsWith("/web/") ||
+    !url.startsWith("/")
+  ) {
+    return url;
+  }
+
+  return "/web" + url;
+};
+
+const navigationWithWeb = {
+  main: navigationData.main.map((item) => ({
+    ...item,
+    url: addWebPrefix(item.url),
+    subitems: item.subitems
+      ? item.subitems.map((subitem) => ({
+          ...subitem,
+          url: addWebPrefix(subitem.url),
+        }))
+      : undefined,
+  })),
+};
+---
+
+<header class="fixed top-4 z-50 w-full px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6">
+  <div
+    class="bg-gradient-to-r from-primary-dark to-dark-bg border border-primary-red/30 rounded-xl backdrop-blur-md bg-opacity-80 shadow-2xl"
+  >
+    <nav class="container mx-auto max-w-full relative">
+      <div
+        class="flex items-center justify-between h-14 md:h-16 min-w-0 px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6"
+      >
+        <div class="flex-shrink-0 mr-2 sm:mr-3 md:mr-4 lg:mr-5 xl:mr-6">
+          <a
+            href="/web/"
+            class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold tracking-tight hover:opacity-90 transition-opacity duration-300 block whitespace-nowrap"
+          >
+            <span class="text-white">RODINA</span>
+            <span class="text-primary-red"> RP</span>
+          </a>
+        </div>
+
+        <div
+          class="hidden md:flex items-center min-w-0 flex-grow justify-end max-w-full"
+        >
+          <div
+            id="search-container"
+            class="relative mr-3 flex-grow max-w-xs lg:max-w-3xs xl:max-w-3xs"
+          >
+            <div class="relative">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Поиск по фракциям и правилам..."
+                class="w-full px-3 pl-9 py-2 bg-dark-bg/50 border border-primary-red/30 rounded-lg text-white text-xs lg:text-sm placeholder-gray-500 focus:outline-none focus:border-primary-red transition-all duration-200"
+                autocomplete="off"
+              />
+              <i
+                class="fas fa-magnifying-glass absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs lg:text-sm"
+              ></i>
+            </div>
+            <div
+              id="search-results"
+              class="hidden absolute top-full mt-2 w-full bg-dark-bg/95 backdrop-blur-md border border-primary-red rounded-xl shadow-2xl z-[10000] max-h-96 overflow-y-auto p-2"
+            >
+            </div>
+          </div>
+
+          <div
+            class="flex items-center space-x-1 sm:space-x-1.5 md:space-x-2 lg:space-x-2.5 min-w-0 max-w-full"
+          >
+            {
+              navigationWithWeb.main.map((item, index) => (
+                <div
+                  class={`relative group flex-shrink-0 ${index === 0 ? "" : ""}`}
+                >
+                  {item.subitems ? (
+                    <>
+                      <div class="flex items-center">
+                        <a
+                          href={item.url}
+                          class={`flex items-center gap-1 px-2 py-1.5 text-xs lg:text-sm font-medium rounded-lg transition-all duration-300 whitespace-nowrap
+                                ${
+                                  isActive(item.url)
+                                    ? "bg-primary-red/20 text-accent-red"
+                                    : "text-gray-400 hover:text-white hover:bg-primary-red/10"
+                                }`}
+                        >
+                          {item.icon && (
+                            <i
+                              class={`fas fa-${item.icon} text-xs lg:text-sm flex-shrink-0`}
+                            />
+                          )}
+                          <span class="truncate hidden lg:inline ml-1">
+                            {item.title}
+                          </span>
+                        </a>
+                        <button
+                          class="desktop-submenu-toggle p-1 text-gray-400 hover:text-white transition-colors duration-300"
+                          aria-label="Открыть подменю"
+                        >
+                          <i class="fas fa-chevron-down text-xs flex-shrink-0" />
+                        </button>
+                      </div>
+
+                      <div
+                        class="absolute top-full mt-1 min-w-[250px] md:min-w-[280px] lg:min-w-[300px] bg-dark-bg/95 backdrop-blur-md rounded-xl shadow-2xl 
+                              opacity-0 invisible border border-primary-red/30 z-[9999] overflow-hidden
+                              max-w-[calc(100vw-2rem)] 
+                              right-0 group-hover:opacity-100 group-hover:visible transition-all duration-200"
+                      >
+                        <div class="p-2">
+                          {item.subitems.map((subitem) => (
+                            <a
+                              href={subitem.url}
+                              class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-primary-red/20 
+                                    transition-all duration-300 group/item min-w-0"
+                            >
+                              <div class="w-7 h-7 flex items-center justify-center rounded-lg bg-primary-red/10 flex-shrink-0 min-w-[1.75rem]">
+                                <i
+                                  class={`fas fa-${subitem.icon || "circle"} text-primary-red text-sm flex-shrink-0`}
+                                />
+                              </div>
+                              <div class="min-w-0 flex-1">
+                                <div class="text-white text-sm font-medium truncate">
+                                  {subitem.title}
+                                </div>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <a
+                      href={item.url}
+                      class={`flex items-center gap-1 px-2 py-1.5 text-xs lg:text-sm font-medium rounded-lg transition-all duration-300 whitespace-nowrap
+                            ${
+                              isActive(item.url)
+                                ? "bg-primary-red/20 text-accent-red"
+                                : "text-gray-400 hover:text-white hover:bg-primary-red/10"
+                            }`}
+                    >
+                      {item.icon && (
+                        <i
+                          class={`fas fa-${item.icon} text-xs lg:text-sm flex-shrink-0`}
+                        />
+                      )}
+                      <span class="truncate hidden lg:inline ml-1">
+                        {item.title}
+                      </span>
+                    </a>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="flex md:hidden items-center gap-1.5 sm:gap-2 flex-shrink-0">
+          <a
+            href="https://rodinaroleplay.gamestores.app/"
+            target="_blank"
+            class="p-1.5 sm:p-2 text-gray-400 hover:text-white hover:bg-primary-red/10 rounded-lg transition-all duration-300"
+          >
+            <i class="fas fa-heart text-base sm:text-lg"></i>
+          </a>
+
+          <button
+            id="mobile-menu-button"
+            class="p-1.5 sm:p-2 text-gray-400 hover:text-white hover:bg-primary-red/10 rounded-lg transition-all duration-300"
+          >
+            <i id="mobile-menu-icon" class="fas fa-list text-lg sm:text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden bg-dark-bg/95 backdrop-blur-md border-t border-primary-red/30 transition-all duration-300 ease-in-out w-full absolute top-full left-0 right-0 z-[9999] shadow-2xl rounded-xl"
+    >
+      <div class="container mx-auto px-3 sm:px-4 py-3 max-w-full">
+        <div
+          id="mobile-search-container"
+          class="p-3 border-b border-primary-red/20 mb-3"
+        >
+          <div class="relative">
+            <input
+              type="text"
+              id="mobile-search-input"
+              placeholder="Поиск по фракциям и правилам..."
+              class="w-full px-4 pl-10 py-2.5 bg-dark-bg/50 border border-primary-red/30 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-primary-red"
+              autocomplete="off"
+            />
+            <i
+              class="fas fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm"
+            ></i>
+          </div>
+          <div
+            id="mobile-search-results"
+            class="hidden mt-2 bg-dark-bg/95 border border-primary-red rounded-lg max-h-64 overflow-y-auto p-2"
+          >
+          </div>
+        </div>
+
+        {
+          navigationWithWeb.main.map((item, index) => (
+            <div class="mb-2">
+              {item.subitems ? (
+                <div class="mobile-submenu">
+                  <button class="mobile-submenu-toggle flex items-center justify-between w-full px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-primary-red/10 transition-all duration-300 min-w-0">
+                    <div class="flex items-center gap-3 min-w-0">
+                      {item.icon && (
+                        <i class={`fas fa-${item.icon} flex-shrink-0`} />
+                      )}
+                      <span class="font-medium truncate">{item.title}</span>
+                    </div>
+                    <i class="fas fa-chevron-right transition-transform duration-300 flex-shrink-0" />
+                  </button>
+                  <div class="mobile-submenu-content hidden mt-1 ml-4 pl-4 border-l border-primary-red/20">
+                    {item.subitems.map((subitem) => (
+                      <a
+                        href={subitem.url}
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-primary-red/10 transition-all duration-300 min-w-0"
+                      >
+                        <div class="w-6 h-6 flex items-center justify-center rounded-lg bg-primary-red/10 flex-shrink-0 min-w-[1.5rem]">
+                          <i
+                            class={`fas fa-${subitem.icon || "circle"} text-primary-red text-sm flex-shrink-0`}
+                          />
+                        </div>
+                        <span class="text-sm truncate">{subitem.title}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <a
+                  href={item.url}
+                  class={`flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-300 min-w-0
+                        ${
+                          isActive(item.url)
+                            ? "bg-primary-red/20 text-accent-red"
+                            : "text-gray-400 hover:text-white hover:bg-primary-red/10"
+                        }`}
+                >
+                  <div class="flex items-center gap-3 min-w-0">
+                    {item.icon && (
+                      <i class={`fas fa-${item.icon} flex-shrink-0`} />
+                    )}
+                    <span class="font-medium truncate">{item.title}</span>
+                  </div>
+                </a>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  let minisearch = null;
+  let searchData = null;
+
+  const loadSearchEngine = async () => {
+    if (!window.loadMiniSearch) {
+      await new Promise((resolve) => {
+        if (document.readyState === "complete") resolve();
+        else window.addEventListener("load", resolve);
+      });
+    }
+
+    if (!window.MiniSearch && window.loadMiniSearch) {
+      await window.loadMiniSearch();
+    }
+
+    return window.MiniSearch || null;
+  };
+
+  const initSearch = async () => {
+    if (!minisearch) {
+      try {
+        const response = await fetch("/web/search-index.json");
+        searchData = await response.json();
+
+        const MiniSearch = await loadSearchEngine();
+
+        if (MiniSearch) {
+          minisearch = new MiniSearch({
+            fields: ["title", "content"],
+            storeFields: ["title", "url", "content", "category"],
+            searchOptions: {
+              boost: { title: 3 },
+              fuzzy: 0.2,
+              prefix: true,
+              combineWith: "AND",
+            },
+          });
+
+          minisearch.addAll(searchData);
+        } else {
+          minisearch = {
+            search: (query, options = {}) => {
+              const results = [];
+              const queryLower = query.toLowerCase();
+
+              searchData.forEach((doc) => {
+                let score = 0;
+                const text = (
+                  doc.title +
+                  " " +
+                  doc.content +
+                  " " +
+                  doc.category
+                ).toLowerCase();
+
+                if (text.includes(queryLower)) {
+                  score = 1;
+                  if (doc.title.toLowerCase().includes(queryLower)) score += 2;
+                  if (doc.category.toLowerCase().includes(queryLower))
+                    score += 1;
+
+                  results.push({
+                    id: doc.id,
+                    score,
+                    doc: doc,
+                  });
+                }
+              });
+
+              results.sort((a, b) => b.score - a.score);
+              return options.limit ? results.slice(0, options.limit) : results;
+            },
+            getDocument: (id) => searchData.find((d) => d.id === id),
+          };
+        }
+      } catch (error) {
+        console.error("Ошибка инициализации поиска:", error);
+        minisearch = null;
+      }
+    }
+    return minisearch;
+  };
+
+  const highlightMatches = (text, query) => {
+    if (!query || query.length < 2 || !text) return text || "";
+
+    const words = query
+      .toLowerCase()
+      .split(" ")
+      .filter((w) => w.length >= 2);
+    let highlighted = text;
+
+    words.forEach((word) => {
+      const regex = new RegExp(
+        `(${word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+        "gi",
+      );
+      highlighted = highlighted.replace(
+        regex,
+        '<mark class="bg-primary-red/30 text-white px-0.5 rounded">$1</mark>',
+      );
+    });
+
+    return highlighted;
+  };
+
+  const performSearch = async (query, containerId) => {
+    const trimmedQuery = query.trim();
+
+    if (!trimmedQuery || trimmedQuery.length < 2) {
+      document.getElementById(containerId)?.classList.add("hidden");
+      return;
+    }
+
+    const ms = await initSearch();
+    if (!ms) return;
+
+    const results = ms.search(trimmedQuery, { limit: 8 });
+    const container = document.getElementById(containerId);
+
+    if (!container) return;
+
+    if (results.length > 0) {
+      container.innerHTML =
+        results
+          .map((result) => {
+            const doc = ms.getDocument
+              ? ms.getDocument(result.id)
+              : result.doc || result;
+            const preview = doc.content
+              ? doc.content.substring(0, 100) + "..."
+              : "";
+
+            return `
+        <a href="${doc.url}" class="search-result-item">
+          <div class="flex justify-between items-center">
+            <div class="search-result-title">${highlightMatches(doc.title, trimmedQuery)}</div>
+            <span class="text-xs text-gray-500 px-2 bg-dark-bg rounded">${doc.category || "Страница"}</span>
+          </div>
+          <div class="search-result-preview">${highlightMatches(preview, trimmedQuery)}</div>
+        </a>
+      `;
+          })
+          .join("") +
+        `
+      <a href="/web/search?q=${encodeURIComponent(trimmedQuery)}" class="show-all-results">
+        <i class="fas fa-search-plus mr-2"></i>Расширенный поиск (${results.length})
+      </a>
+    `;
+
+      container.classList.remove("hidden");
+    } else {
+      container.innerHTML = `
+      <div class="p-4 text-center text-gray-400">
+        Ничего не найдено для "${trimmedQuery}"
+      </div>
+    `;
+      container.classList.remove("hidden");
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const desktopInput = document.getElementById("search-input");
+    const desktopResults = document.getElementById("search-results");
+
+    if (desktopInput && desktopResults) {
+      let timer;
+      desktopInput.addEventListener("input", (e) => {
+        clearTimeout(timer);
+        timer = setTimeout(
+          () => performSearch(e.target.value, "search-results"),
+          200,
+        );
+      });
+
+      desktopInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          window.location.href = `/web/search?q=${encodeURIComponent(desktopInput.value)}`;
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#search-container")) {
+          desktopResults.classList.add("hidden");
+        }
+      });
+    }
+
+    const mobileInput = document.getElementById("mobile-search-input");
+    const mobileResults = document.getElementById("mobile-search-results");
+
+    if (mobileInput && mobileResults) {
+      let timer;
+      mobileInput.addEventListener("input", (e) => {
+        clearTimeout(timer);
+        timer = setTimeout(
+          () => performSearch(e.target.value, "mobile-search-results"),
+          200,
+        );
+      });
+
+      mobileInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          window.location.href = `/web/search?q=${encodeURIComponent(mobileInput.value)}`;
+          document.getElementById("mobile-menu")?.classList.add("hidden");
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#mobile-search-container")) {
+          mobileResults.classList.add("hidden");
+        }
+      });
+    }
+
+    if (window.location.pathname === "/web/search") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const query = urlParams.get("q");
+      if (query) {
+        const searchInput =
+          document.getElementById("search-input") ||
+          document.getElementById("mobile-search-input");
+        if (searchInput) {
+          searchInput.value = query;
+          setTimeout(() => performSearch(query, "search-results"), 300);
+        }
+      }
+    }
+  });
+</script>
+
+<script src="/web/js/load-minisearch.js" defer></script>
+<script src="/web/assets/js/navigation.min.js" defer></script>

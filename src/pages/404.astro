@@ -1,0 +1,31 @@
+---
+import PageLayout_B from '../layouts/PageLayout_B.astro';
+---
+
+<PageLayout_B title="404 - Страница не найдена">
+  <div class="error-container">
+    <div class="error-content">
+      <div class="error-visual">
+        <div class="error-code">404</div>
+        <div class="error-image-container">
+          <video class="error-image" autoplay loop muted playsinline preload="auto">
+            <source src="/web/assets/video/error.webm" type="video/webm">
+          </video>
+        </div>
+      </div>
+      
+      <div class="error-text">
+        <h1 class="error-title">Ой! Страница не найдена</h1>
+        <p class="error-description">
+          Похоже, вы пытаетесь найти страницу, которой не существует или она была перемещена.
+          Проверьте адрес или вернитесь на главную страницу.
+        </p>
+        
+        <a href="/web/" class="error-link">
+          <i class="fas fa-arrow-left"></i>
+          Вернуться на главную
+        </a>
+      </div>
+    </div>
+  </div>
+</PageLayout_B>
